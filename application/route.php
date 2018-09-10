@@ -11,3 +11,4 @@
 use  think\Route;
 
 Route::get('/','index/Index/index');
+Route::get('banner','api/v1.Banner/index');
