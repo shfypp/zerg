@@ -10,7 +10,6 @@ namespace app\api\controller\v1;
 
 
 use app\api\validate\IDMustBePositiveInt;
-use app\lib\exception\BannerMissException;
 
 class Banner
 {
@@ -20,7 +19,8 @@ class Banner
 
     public function getBanner(){
         (new IDMustBePositiveInt())->goCheck();
-        throw new BannerMissException();
+//        throw new BannerMissException();
+        $a=1/0;
         return "v1.Banner/getBanner";
     }
 }

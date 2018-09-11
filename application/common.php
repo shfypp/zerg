@@ -10,3 +10,12 @@
 // +----------------------------------------------------------------------
 
 // 应用公共文件
+use think\Log;
+function recordError($msg,$level='error'){
+    Log::init([
+        'type'=>'File',
+        'path'=>LOG_PATH,
+        'level'=>[$level],
+    ]);
+    Log::write($msg,$level);
+}

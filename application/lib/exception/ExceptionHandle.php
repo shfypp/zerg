@@ -21,6 +21,8 @@ class ExceptionHandle extends Handle
 
     public function render(Exception $e)
     {
+        $request = Request::instance();
+
         if ($e instanceof BaseException) {
             $this->code = $e->code;
             $this->msg = $e->msg;
@@ -29,9 +31,16 @@ class ExceptionHandle extends Handle
             $this->code = 500;
             $this->msg = '服务器内部错误';
             $this->errorCode = '999';
+
+            $errorData=[
+                'error_msg'=>$e->getMessage(),
+                'request_url'=>$request->url(),
+                'request_ip'=>$request->ip(),
+            ];
+
+            recordError(json($errorData),'error');
         }
 
-        $request = Request::instance();
         $result = [
             'msg' => $this->msg,
             'error_code' => $this->errorCode,
@@ -39,5 +48,4 @@ class ExceptionHandle extends Handle
         ];
         return json($result, $this->code);
     }
-
 }
