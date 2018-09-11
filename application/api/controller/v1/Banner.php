@@ -20,13 +20,13 @@ class Banner
         return "v1.Banner/index";
     }
 
-    public function getBanner(){
+    public function getBanner($id){
         (new IDMustBePositiveInt())->goCheck();
 
-        $banner=BannerModel::getBanner(1);
+        $banner=BannerModel::get($id);
 
         if (!$banner) throw new BannerMissException();
 
-        return json($banner);
+        return $banner;
     }
 }

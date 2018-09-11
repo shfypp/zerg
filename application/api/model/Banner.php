@@ -13,9 +13,5 @@ use think\Model;
 
 class Banner extends Model
 {
-    public static function getBanner($id){
-        $banner=self::get($id);
-        return $banner;
-    }
 
 }
