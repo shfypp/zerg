@@ -12,6 +12,6 @@ namespace app\api\validate;
 class IDMustBePositiveInt extends BaseValidate
 {
     protected $rule=[
-        'id'=>'require|number|between:0,4294967295'
+        'id'=>'require|integer|between:0,4294967295'
     ];
 }
