@@ -28,17 +28,21 @@ class ExceptionHandle extends Handle
             $this->msg = $e->msg;
             $this->errorCode = $e->errorCode;
         } else {
+            if (config('app_debug')) {
+                return parent::render($e);
+            }
+
             $this->code = 500;
             $this->msg = '服务器内部错误';
             $this->errorCode = '999';
 
-            $errorData=[
-                'error_msg'=>$e->getMessage(),
-                'request_url'=>$request->url(),
-                'request_ip'=>$request->ip(),
+            $errorData = [
+                'error_msg' => $e->getMessage(),
+                'request_url' => $request->url(),
+                'request_ip' => $request->ip(),
             ];
 
-            recordError(json($errorData),'error');
+            recordError(json($errorData), 'error');
         }
 
         $result = [
