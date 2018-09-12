@@ -9,9 +9,7 @@
 namespace app\api\model;
 
 
-use think\Model;
-
-class BannerItem extends Model
+class BannerItem extends Base
 {
     protected $visible=['key_word','type','image'];
 

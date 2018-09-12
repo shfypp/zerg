@@ -9,9 +9,12 @@
 namespace app\api\model;
 
 
-use think\Model;
-
-class Image extends Model
+class Image extends Base
 {
-    protected $visible=['url'];
+    protected $visible = ['url'];
+
+    public function getUrlAttr($value, $data)
+    {
+        return $this->prefixImgUrl($value,$data);
+    }
 }

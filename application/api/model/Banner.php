@@ -9,9 +9,7 @@
 namespace app\api\model;
 
 
-use think\Model;
-
-class Banner extends Model
+class Banner extends Base
 {
     protected $visible=['name','description','banner_items'];
 
