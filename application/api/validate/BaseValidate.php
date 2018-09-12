@@ -15,15 +15,22 @@ use think\Validate;
 
 class BaseValidate extends Validate
 {
-    public function goCheck(){
-        $request=Request::instance();
-        $params=$request->param();
+    public function goCheck()
+    {
+        $request = Request::instance();
+        $params = $request->param();
 
-        $result=$this->batch()->check($params);
-        if (!$result){
-            throw new ParameterException(['msg'=>$this->error]);
-        }else{
+        $result = $this->batch()->check($params);
+        if (!$result) {
+            throw new ParameterException(['msg' => $this->error]);
+        } else {
             return true;
         }
+    }
+
+    protected function isPositiveInteger($value)
+    {
+        if (is_numeric($value) && is_int($value + 0) && ($value + 0) > 0) return true;
+        return false;
     }
 }

@@ -11,6 +11,8 @@ namespace app\api\model;
 
 class Theme extends Base
 {
+    protected $visible=['id','name','description','topic_img','head_img'];
+
     public function topicImg(){
         return $this->belongsTo('Image','topic_img_id','id');
     }

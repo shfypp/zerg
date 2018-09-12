@@ -17,7 +17,7 @@ class Banner
 {
     public function index($version)
     {
-        return $version.".Banner/index";
+        return $version . ".Banner/index";
     }
 
     public function getBanner($id)
