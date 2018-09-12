@@ -11,5 +11,5 @@
 use  think\Route;
 
 Route::get('/','index/Index/index');
-Route::get('api/v1/banner/:id','api/v1.Banner/getBanner');
-Route::get('api/v1/banner','api/v1.Banner/index');
+Route::get('api/:version/banner/:id','api/:version.Banner/getBanner');
+Route::get('api/:version/banner','api/:version.Banner/index');

@@ -15,10 +15,9 @@ use app\lib\exception\BannerMissException;
 
 class Banner
 {
-    public function index()
+    public function index($version)
     {
-        echo phpinfo();
-        return "v1.Banner/index";
+        return $version.".Banner/index";
     }
 
     public function getBanner($id)
