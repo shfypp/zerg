@@ -11,6 +11,7 @@ namespace app\api\controller\v1;
 
 use app\api\model\Theme as ThemeModel;
 use app\api\validate\IDCollection;
+use app\api\validate\IDMustBePositiveInt;
 use app\lib\exception\ThemeMissException;
 
 class Theme
@@ -29,8 +30,15 @@ class Theme
         (new IDCollection())->goCheck();
         $ids = explode(',', $ids);
 
-        $themes = ThemeModel::all($ids, 'topic_img,head_img', false);
+        $themes = ThemeModel::all($ids, 'topic_img,head_img,products.img', false);
         if (!$themes) throw new ThemeMissException();
         return $themes;
+    }
+
+    public function getComplexOne($id){
+        (new IDMustBePositiveInt())->goCheck();
+        $theme = ThemeModel::get($id, 'topic_img,head_img,products.img', false);
+        if (!$theme) throw new ThemeMissException();
+        return $theme;
     }
 }
