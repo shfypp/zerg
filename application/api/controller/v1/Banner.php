@@ -15,15 +15,17 @@ use app\lib\exception\BannerMissException;
 
 class Banner
 {
-    public function index(){
+    public function index()
+    {
         echo phpinfo();
         return "v1.Banner/index";
     }
 
-    public function getBanner($id){
+    public function getBanner($id)
+    {
         (new IDMustBePositiveInt())->goCheck();
 
-        $banner=BannerModel::get($id);
+        $banner = BannerModel::getBannerById($id);
 
         if (!$banner) throw new BannerMissException();
 
