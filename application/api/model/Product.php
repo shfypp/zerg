@@ -11,18 +11,28 @@ namespace app\api\model;
 
 class Product extends Base
 {
-    protected $visible=['id','name','price','stock','main_img_url','from','category','img'];
+    protected $hidden = ['delete_time', 'create_time', 'update_time', 'img_id'];
 
-    public function category(){
-        return $this->belongsTo('Category','category_id','id');
+    public function category()
+    {
+        return $this->belongsTo('Category', 'category_id', 'id');
     }
 
-    public function img(){
-        return $this->belongsTo('Image','img_id','id');
+    public function img()
+    {
+        return $this->belongsTo('Image', 'img_id', 'id');
     }
 
-    public function getMainImgUrlAttr($value,$data){
-        return $this->prefixImgUrl($value,$data);
+    public function getMainImgUrlAttr($value, $data)
+    {
+        return $this->prefixImgUrl($value, $data);
+    }
+
+    public static function getRecentProducts($count)
+    {
+        return self::limit($count)
+            ->order('create_time desc')
+            ->select();
     }
 
 }

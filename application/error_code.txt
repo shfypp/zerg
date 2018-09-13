@@ -2,6 +2,9 @@
 
 10000 通用参数错误
 
+Product
+20000   请求的Product不存在
+
 Theme
 30000   请求的Theme不存在
 
