@@ -42,7 +42,7 @@ class ExceptionHandle extends Handle
                 'request_ip' => $request->ip(),
             ];
 
-            recordError(json($errorData), 'error');
+            sf_record_error(json($errorData), 'error');
         }
 
         $result = [

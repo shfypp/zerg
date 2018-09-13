@@ -33,4 +33,12 @@ class BaseValidate extends Validate
         if (is_numeric($value) && is_int($value + 0) && ($value + 0) > 0) return true;
         return false;
     }
+
+    protected function isNotEmpty($value)
+    {
+        if (empty($value)) return false;
+        return true;
+    }
+
+
 }
