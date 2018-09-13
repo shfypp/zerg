@@ -35,4 +35,10 @@ class Product extends Base
             ->select();
     }
 
+    public static function getCategoryProducts($id=0){
+        return self::with('img')
+            ->where('category_id','eq',$id)
+            ->select();
+    }
+
 }
