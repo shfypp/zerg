@@ -11,7 +11,7 @@ namespace app\api\model;
 
 class BannerItem extends Base
 {
-    protected $visible=['key_word','type','image'];
+    protected $hidden=['delete_time','update_time','banner_id','img_id'];
 
     public function image(){
         return $this->belongsTo('Image','img_id','id');

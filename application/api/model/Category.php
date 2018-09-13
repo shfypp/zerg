@@ -11,7 +11,7 @@ namespace app\api\model;
 
 class Category extends Base
 {
-    protected $visible=['id','name','topic_img'];
+    protected $hidden=['delete_time','update_time','topic_img_id'];
 
     public function topicImg(){
         return $this->belongsTo('Image','topic_img_id','id');

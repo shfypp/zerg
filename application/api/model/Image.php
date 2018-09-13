@@ -11,7 +11,7 @@ namespace app\api\model;
 
 class Image extends Base
 {
-    protected $visible = ['url'];
+    protected $hidden=['delete_time','update_time','id','from'];
 
     public function getUrlAttr($value, $data)
     {

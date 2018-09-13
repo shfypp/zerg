@@ -11,7 +11,7 @@ namespace app\api\model;
 
 class Banner extends Base
 {
-    protected $visible=['name','description','banner_items'];
+    protected $hidden=['delete_time','update_time'];
 
     public function bannerItems(){
         return $this->hasMany('BannerItem','banner_id','id');
