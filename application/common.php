@@ -12,7 +12,11 @@
 // 应用公共文件
 use think\Log;
 
-//手动记录日志
+/**
+ * 手动记录日志
+ * @param $msg
+ * @param string $level
+ */
 function sf_record_error($msg, $level='error'){
     Log::init([
         'type'=>'File',
@@ -22,6 +26,12 @@ function sf_record_error($msg, $level='error'){
     Log::write($msg,$level);
 }
 
+/**
+ * 发送URL请求 返回请求内容
+ * @param $url
+ * @param int $httpCode
+ * @return mixed
+ */
 function sf_curl_get($url,&$httpCode=0){
     $ch=curl_init();
     curl_setopt($ch,CURLOPT_URL,$url);
@@ -35,4 +45,24 @@ function sf_curl_get($url,&$httpCode=0){
     $httpCode=curl_getinfo($ch,CURLINFO_HTTP_CODE);
     curl_close($ch);
     return $file_contents;
+}
+
+/**
+ * 获取指定长度的随机字符串
+ * @param $length
+ * @return null|string
+ */
+function sf_getRandChar($length)
+{
+    $str = null;
+    $strPol = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz";
+    $max = strlen($strPol) - 1;
+
+    for ($i = 0;
+         $i < $length;
+         $i++) {
+        $str .= $strPol[rand(0, $max)];
+    }
+
+    return $str;
 }

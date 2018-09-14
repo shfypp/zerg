@@ -9,9 +9,10 @@
 namespace app\api\service;
 
 
+use app\lib\exception\TokenException;
 use app\lib\exception\WeChatException;
 use app\api\model\User as UserModel;
-class User
+class User extends Token
 {
     protected $code;
     protected $wxAppId;
@@ -35,23 +36,41 @@ class User
             'msg'=>$wxResult['errmsg'],
             'errorCode'=>$wxResult['errcode'],
         ]);
-        return $result;
+        $token=$this->grantToken($wxResult);
+        return $token;
     }
 
     private function grantToken($wxResult){
         //获取openId
+        $openid=$wxResult['openid'];
         //查看数据库该openId是否已存在
         //如果不存在 增加1条user记录
-        //生成Token 写入缓存
-        //返回Token
-        $openid=$wxResult['openid'];
-        $user=UserModel::getByOpenId($openid);
+        $user=UserModel::getByOpenid($openid);
         if ($user){
             $uid=$user->id;
         }else{
             $user=UserModel::create(['openid'=>$openid]);
             $uid=$user->id;
         }
+        //生成Token 写入缓存
+        $token_data=json_encode($this->getTokenData($wxResult,$uid));
+        $token_key=self::generateToken();
+        $token_expire=config('setting.token_expire');
+
+        $c_result=cache($token_key,$token_data,$token_expire);
+        if (!$c_result) throw new TokenException([
+            'msg'=>'服务器缓存错误',
+            'errorCode'=>10005,
+        ]);
+        //返回Token
+        return $token_key;
+    }
+
+    private function getTokenData($wxResult,$uid){
+        $catch_data=$wxResult;
+        $catch_data['uid']=$uid;
+        $catch_data['scope']=16;
+        return $catch_data;
     }
 
 }

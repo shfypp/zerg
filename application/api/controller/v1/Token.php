@@ -17,9 +17,8 @@ class Token
     public function getToken($code = '')
     {
         (new TokenGet())->goCheck();
-        $userService=new UserService();
-        $token =$userService->getToken($code);
-        if (!$token) ;
-        return $token;
+        $userService = new UserService($code);
+        $token = $userService->getToken();
+        return ['token' => $token];
     }
 }

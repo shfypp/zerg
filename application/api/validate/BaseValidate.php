@@ -28,12 +28,22 @@ class BaseValidate extends Validate
         }
     }
 
+    /**
+     * 自定义验证规则 正整数
+     * @param $value
+     * @return bool
+     */
     protected function isPositiveInteger($value)
     {
         if (is_numeric($value) && is_int($value + 0) && ($value + 0) > 0) return true;
         return false;
     }
 
+    /**
+     * 自定义验证规则 非空
+     * @param $value
+     * @return bool
+     */
     protected function isNotEmpty($value)
     {
         if (empty($value)) return false;
