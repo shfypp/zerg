@@ -33,6 +33,14 @@ class Product extends Base
         return $this->prefixImgUrl($value, $data);
     }
 
+    /**
+     * 获取最近新品
+     * @param $count
+     * @return false|\PDOStatement|string|\think\Collection
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public static function getRecentProducts($count)
     {
         return self::limit($count)
@@ -40,12 +48,34 @@ class Product extends Base
             ->select();
     }
 
+    /**
+     * 获取分类商品
+     * @param int $id Category ID
+     * @return Product[]|false
+     * @throws \think\exception\DbException
+     */
     public static function getCategoryProducts($id=0){
         return self::all(['category_id'=>$id]);
     }
 
+    /**
+     * 获取商品详情
+     * @param $id Product ID
+     * @return array|false|\PDOStatement|string|\think\Model
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
+     */
     public static function getProductDetail($id){
-        return self::get($id,['images.image','properties']);
+        return self::with([
+            'images'=>function($query){
+                $query->with('image')
+                    ->order('order','asc');
+            }
+        ])
+            ->with('properties')
+            ->where('id','eq',$id)
+            ->find();
     }
 
 }

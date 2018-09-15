@@ -21,6 +21,9 @@ class Product
      * @return false|\PDOStatement|string|\think\Collection|\think\model\Collection
      * @throws ProductMissException
      * @throws \app\lib\exception\ParameterException
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function getRecent($count = 5)
     {
@@ -38,6 +41,7 @@ class Product
      * @return ProductModel[]|false|\think\Collection|\think\model\Collection
      * @throws ProductMissException
      * @throws \app\lib\exception\ParameterException
+     * @throws \think\exception\DbException
      */
     public function getByCategoryId($id = '')
     {
@@ -53,11 +57,14 @@ class Product
 
 
     /**
-     * 商品详情
+     * 获取商品详情
      * @param $id 商品ID
      * @return ProductModel
      * @throws ProductMissException
      * @throws \app\lib\exception\ParameterException
+     * @throws \think\db\exception\DataNotFoundException
+     * @throws \think\db\exception\ModelNotFoundException
+     * @throws \think\exception\DbException
      */
     public function getOne($id){
         (new IDMustBePositiveInt())->goCheck();
