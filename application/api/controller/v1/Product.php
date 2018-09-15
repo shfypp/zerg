@@ -55,7 +55,6 @@ class Product
         return $products;
     }
 
-
     /**
      * 获取商品详情
      * @param $id 商品ID

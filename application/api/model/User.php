@@ -13,4 +13,8 @@ class User extends Base
 {
     protected $hidden=['delete_time','update_time','create_time'];
 
+    public function address()
+    {
+        return $this->hasOne('UserAddress', 'user_id', 'id');
+    }
 }

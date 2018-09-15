@@ -15,5 +15,10 @@ Banner
 Category
 50000   请求的Category不存在
 
+User
+60000   请求的User不存在
+
+
+
 
 

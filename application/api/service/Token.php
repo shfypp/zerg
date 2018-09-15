@@ -9,6 +9,11 @@
 namespace app\api\service;
 
 
+use app\lib\exception\TokenException;
+use think\Cache;
+use think\Exception;
+use think\Request;
+
 class Token
 {
     /**
@@ -20,6 +25,17 @@ class Token
         $timestamp = $_SERVER['REQUEST_TIME'];
         $salt = config('secure.token_salt');
         return md5($randChars . $timestamp . $salt);
+    }
+
+    public static function getCurrentTokenValue($key)
+    {
+        $token = Request::instance()
+            ->header('token');
+        $vals = Cache::get($token);
+        if (!$vals) throw new TokenException();
+        if (!is_array($vals)) $vals = json_decode($vals, true);
+        if (array_key_exists($key, $vals)) return $vals[$key];
+        throw new Exception('请求的Token信息不存在');
     }
 
 }

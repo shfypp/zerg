@@ -12,7 +12,7 @@ namespace app\api\service;
 use app\lib\exception\TokenException;
 use app\lib\exception\WeChatException;
 use app\api\model\User as UserModel;
-class User extends Token
+class UserToken extends Token
 {
     protected $code;
     protected $wxAppId;
@@ -38,6 +38,17 @@ class User extends Token
         ]);
         $token=$this->grantToken($wxResult);
         return $token;
+    }
+
+
+    /**
+     * 获取当前用户的UID
+     * @return mixed
+     * @throws TokenException
+     * @throws \think\Exception
+     */
+    public static function getCurrentUid(){
+        return self::getCurrentTokenValue('uid');
     }
 
     private function grantToken($wxResult){
