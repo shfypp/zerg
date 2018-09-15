@@ -18,8 +18,8 @@ Route::get('api/:version/banner','api/:version.Banner/index');
 Route::get('api/:version/theme','api/:version.Theme/getSimpleList');
 Route::get('api/:version/theme/:id','api/:version.Theme/getComplexOne');
 
+Route::get('api/:version/product/:id','api/:version.Product/getOne',[],['id'=>'\d+']);
 Route::get('api/:version/product/recent','api/:version.Product/getRecent');
-Route::post('api/:version/product/:id','api/:version.Product/getOne');
 Route::get('api/:version/product/by_category','api/:version.Product/getByCategoryId');
 
 Route::get('api/:version/category/all','api/:version.Category/getAllCategories');

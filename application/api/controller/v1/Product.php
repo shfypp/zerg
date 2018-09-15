@@ -15,6 +15,13 @@ use app\lib\exception\ProductMissException;
 
 class Product
 {
+    /**
+     * 最近新品
+     * @param int $count
+     * @return false|\PDOStatement|string|\think\Collection|\think\model\Collection
+     * @throws ProductMissException
+     * @throws \app\lib\exception\ParameterException
+     */
     public function getRecent($count = 5)
     {
         (new CountValidate())->goCheck();
@@ -25,6 +32,13 @@ class Product
         return $products;
     }
 
+    /**
+     * 分类列表
+     * @param string $id 分类Category ID
+     * @return ProductModel[]|false|\think\Collection|\think\model\Collection
+     * @throws ProductMissException
+     * @throws \app\lib\exception\ParameterException
+     */
     public function getByCategoryId($id = '')
     {
         (new IDMustBePositiveInt())->goCheck();
@@ -38,6 +52,13 @@ class Product
     }
 
 
+    /**
+     * 商品详情
+     * @param $id 商品ID
+     * @return ProductModel
+     * @throws ProductMissException
+     * @throws \app\lib\exception\ParameterException
+     */
     public function getOne($id){
         (new IDMustBePositiveInt())->goCheck();
         $product=ProductModel::getProductDetail($id);

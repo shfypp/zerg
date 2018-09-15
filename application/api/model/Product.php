@@ -41,13 +41,11 @@ class Product extends Base
     }
 
     public static function getCategoryProducts($id=0){
-        return self::with('img')
-            ->where('category_id','eq',$id)
-            ->select();
+        return self::all(['category_id'=>$id]);
     }
 
     public static function getProductDetail($id){
-        return self::get($id,['images','properties']);
+        return self::get($id,['images.image','properties']);
     }
 
 }
