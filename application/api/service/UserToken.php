@@ -9,6 +9,7 @@
 namespace app\api\service;
 
 
+use app\lib\enum\ScopeEnum;
 use app\lib\exception\TokenException;
 use app\lib\exception\WeChatException;
 use app\api\model\User as UserModel;
@@ -80,7 +81,7 @@ class UserToken extends Token
     private function getTokenData($wxResult,$uid){
         $catch_data=$wxResult;
         $catch_data['uid']=$uid;
-        $catch_data['scope']=16;
+        $catch_data['scope']=ScopeEnum::User;
         return $catch_data;
     }
 

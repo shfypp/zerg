@@ -27,6 +27,13 @@ class Token
         return md5($randChars . $timestamp . $salt);
     }
 
+    /**
+     * 根据Token从缓存中获取对应的Token信息
+     * @param $key
+     * @return mixed
+     * @throws Exception
+     * @throws TokenException
+     */
     public static function getCurrentTokenValue($key)
     {
         $token = Request::instance()

@@ -18,6 +18,7 @@ class Theme
 {
 
     /**
+     * 获取Theme简单列表
      * url /theme?ids=1,2,3,...
      * @param string $ids
      * @return ThemeModel[]|false
@@ -35,6 +36,14 @@ class Theme
         return $themes;
     }
 
+    /**
+     * 获取Theme详情
+     * @param $id
+     * @return ThemeModel
+     * @throws ThemeMissException
+     * @throws \app\lib\exception\ParameterException
+     * @throws \think\exception\DbException
+     */
     public function getComplexOne($id){
         (new IDMustBePositiveInt())->goCheck();
         $theme = ThemeModel::get($id, 'topic_img,head_img,products.img', false);
