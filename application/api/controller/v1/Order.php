@@ -36,6 +36,7 @@ class Order extends Base
     {
         (new OrderPlace())->goCheck();
         return 'success';
+
     }
 
 
