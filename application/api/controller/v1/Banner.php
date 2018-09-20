@@ -20,6 +20,12 @@ class Banner
         return $version . ".Banner/index";
     }
 
+    /**
+     * @param $id
+     * @return BannerModel
+     * @throws BannerMissException
+     * @throws \app\lib\exception\ParameterException
+     */
     public function getBanner($id)
     {
         (new IDMustBePositiveInt())->goCheck();

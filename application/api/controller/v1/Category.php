@@ -13,6 +13,11 @@ use app\lib\exception\CategoryMissException;
 
 class Category
 {
+    /**
+     * @return CategoryModel[]|false
+     * @throws CategoryMissException
+     * @throws \think\exception\DbException
+     */
     public function getAllCategories(){
         $categories=CategoryModel::all([],'topicImg');
         if (!$categories) throw new CategoryMissException();

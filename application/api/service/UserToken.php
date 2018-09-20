@@ -9,10 +9,12 @@
 namespace app\api\service;
 
 
+use app\api\model\User as UserModel;
 use app\lib\enum\ScopeEnum;
 use app\lib\exception\TokenException;
 use app\lib\exception\WeChatException;
-use app\api\model\User as UserModel;
+use think\Exception;
+
 class UserToken extends Token
 {
     protected $code;
@@ -28,11 +30,17 @@ class UserToken extends Token
         $this->wxLoginUrl = sprintf(config('wx.login_url'), $this->wxAppId, $this->wxAppSecret, $this->code);
     }
 
+    /**
+     * @return string
+     * @throws Exception
+     * @throws TokenException
+     * @throws WeChatException
+     */
     public function getToken()
     {
         $result = sf_curl_get($this->wxLoginUrl);
         $wxResult = json_decode($result, true);
-        if (empty($wxResult)) throw new \Exception('获取session_key及openID时异常，微信内部错误');
+        if (empty($wxResult)) throw new Exception('获取session_key及openID时异常，微信内部错误');
         if (array_key_exists('errcode',$wxResult)) throw new WeChatException([
             'msg'=>$wxResult['errmsg'],
             'errorCode'=>$wxResult['errcode'],
@@ -45,8 +53,8 @@ class UserToken extends Token
     /**
      * 获取当前用户的UID
      * @return mixed
+     * @throws Exception
      * @throws TokenException
-     * @throws \think\Exception
      */
     public static function getCurrentUid(){
         return self::getCurrentTokenValue('uid');
