@@ -14,6 +14,14 @@ use app\api\service\UserToken as UserService;
 
 class Token
 {
+    /**
+     * @param string $code
+     * @return array
+     * @throws \app\lib\exception\ParameterException
+     * @throws \app\lib\exception\TokenException
+     * @throws \app\lib\exception\WeChatException
+     * @throws \think\Exception
+     */
     public function getToken($code = '')
     {
         (new TokenGet())->goCheck();

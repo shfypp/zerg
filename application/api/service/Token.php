@@ -9,6 +9,8 @@
 namespace app\api\service;
 
 
+use app\lib\enum\ScopeEnum;
+use app\lib\exception\ForbiddenException;
 use app\lib\exception\TokenException;
 use think\Cache;
 use think\Exception;
@@ -45,4 +47,31 @@ class Token
         throw new Exception('请求的Token信息不存在');
     }
 
+    /**
+     * @return bool
+     * @throws Exception
+     * @throws ForbiddenException
+     * @throws TokenException
+     */
+    public static function needPrimaryScope()
+    {
+        $scope = self::getCurrentTokenValue('scope');
+        if (!$scope) throw new TokenException();
+        if ($scope < ScopeEnum::User) throw new ForbiddenException();
+        return true;
+    }
+
+    /**
+     * @return bool
+     * @throws Exception
+     * @throws ForbiddenException
+     * @throws TokenException
+     */
+    public static function needExclusiveScope()
+    {
+        $scope = self::getCurrentTokenValue('scope');
+        if (!$scope) throw new TokenException();
+        if ($scope != ScopeEnum::User) throw new ForbiddenException();
+        return true;
+    }
 }
