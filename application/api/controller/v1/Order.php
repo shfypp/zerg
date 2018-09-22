@@ -9,6 +9,7 @@
 namespace app\api\controller\v1;
 
 
+use app\api\service\UserToken;
 use app\api\validate\OrderPlace;
 
 class Order extends Base
@@ -35,6 +36,8 @@ class Order extends Base
     public function placeOrder()
     {
         (new OrderPlace())->goCheck();
+        $products=input('post.products/a');
+        $uid=UserToken::getCurrentUid();
         return 'success';
 
     }
